@@ -109,29 +109,34 @@ void Control::setStatus(unsigned char newValue){
 
 void Control::updateStatus(){
   
-  switch(block_mode){
-      case CONTROL_BLOCK_MODE_DISABLE:
-        block_status = CONTROL_BLOCK_STATUS_OFF;
-        break;
-      case CONTROL_BLOCK_MODE_COLD:
-        if( ( (int)temp ) > set_point )
-          block_status = CONTROL_BLOCK_STATUS_COLD_ON;
-        else
+  if(block_status == CONTROL_BLOCK_STATUS_ERROR){
+    return;
+  }
+  else{
+    switch(block_mode){
+        case CONTROL_BLOCK_MODE_DISABLE:
           block_status = CONTROL_BLOCK_STATUS_OFF;
-        break;
-      case CONTROL_BLOCK_MODE_HEAT:
-        if( ( (int)temp ) < set_point )
-          block_status = CONTROL_BLOCK_STATUS_HEAT_ON;
-        else
-          block_status = CONTROL_BLOCK_STATUS_OFF;
-        break;
-      case CONTROL_BLOCK_MODE_COLD_HEAT:
-        if( ( (int)temp ) > set_point )
-          block_status = CONTROL_BLOCK_STATUS_COLD_ON;
-        else if( ( (int)temp ) < set_point )
-          block_status = CONTROL_BLOCK_STATUS_HEAT_ON;
-        else
-          block_status = CONTROL_BLOCK_STATUS_OFF;
-        break;
+          break;
+        case CONTROL_BLOCK_MODE_COLD:
+          if( ( (int)temp ) > set_point )
+            block_status = CONTROL_BLOCK_STATUS_COLD_ON;
+          else
+            block_status = CONTROL_BLOCK_STATUS_OFF;
+          break;
+        case CONTROL_BLOCK_MODE_HEAT:
+          if( ( (int)temp ) < set_point )
+            block_status = CONTROL_BLOCK_STATUS_HEAT_ON;
+          else
+            block_status = CONTROL_BLOCK_STATUS_OFF;
+          break;
+        case CONTROL_BLOCK_MODE_COLD_HEAT:
+          if( ( (int)temp ) > set_point )
+            block_status = CONTROL_BLOCK_STATUS_COLD_ON;
+          else if( ( (int)temp ) < set_point )
+            block_status = CONTROL_BLOCK_STATUS_HEAT_ON;
+          else
+            block_status = CONTROL_BLOCK_STATUS_OFF;
+          break;
     }
+  }
 }

@@ -193,8 +193,12 @@ void Display::printBlock(){
   lcd.print(current_STATUS);  
   lcd.setCursor(0,1);
   lcd.print("T:");
-  lcd.print(current_TEMP);
-  
+  if(current_TEMP == CONTROL_BLOCK_STATUS_ERROR){
+    lcd.print("--");
+  }
+  else{
+    lcd.print(current_TEMP);
+  }
   lcd.print(" SP:");
   lcd.print(current_SP);  
   
@@ -203,7 +207,7 @@ void Display::printBlock(){
 
 void Display::print_UP_DOWN(){
   lcd.setCursor(15,0);
-  lcd.write((uint8_t)0);
+  lcd.write((unsigned char)0);
   lcd.setCursor(15,1);
-  lcd.write((uint8_t)1);
+  lcd.write((unsigned char)1);
 }

@@ -1,6 +1,5 @@
 #include "Arduino.h"
 #include "Sensors.h"
-#include "MemoryFree.h"
 
 Sensors::Sensors(int ONE_WIRE_BUS):
   oneWire(ONE_WIRE_BUS),
@@ -62,6 +61,10 @@ float Sensors::getTemperature(DeviceAddress addr) {
 
 unsigned char Sensors::getTotalDevices(){
   return totalDevices;
+}
+
+byte Sensors::checkSensor(DeviceAddress addr){
+  return ds_sensors.isConnected(addr);
 }
 
 void Sensors::printAddress(byte *sensor_id){

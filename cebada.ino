@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <EEPROM.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -8,18 +7,18 @@
 
 
 #define s_OUT_CLOCK	6
-#define s_OUT_DATA        5
-#define s_OUT_ENABLE      7
-#define s_ONE_WIRE_BUS    A4
+#define s_OUT_DATA      5
+#define s_OUT_ENABLE    7
+#define s_ONE_WIRE_BUS  A4
 
 #define s_LCD_ENABLE	2
 #define s_LCD_CLOCK	3
 #define s_LCD_DATA	4
 
 #define s_IN_UP		A0
-#define s_IN_DOWN		A1
-#define s_IN_SET		A2
-#define s_IN_BACK		A3
+#define s_IN_DOWN	A1
+#define s_IN_SET	A2
+#define s_IN_BACK	A3
 
 System system(
             s_ONE_WIRE_BUS,
@@ -40,7 +39,6 @@ unsigned long time;
 void setup()
 {
    system.begin();
-   Serial.println("sistema iniciado...");
 }
 
 void loop()

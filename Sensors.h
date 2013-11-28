@@ -25,6 +25,7 @@ class Sensors
    void reset_search();
    float getTemperature(DeviceAddress addr);
    unsigned char getTotalDevices();
+   byte checkSensor(DeviceAddress addr);
    byte getDeviceAddress(byte *newAddr, byte index);
    void printAddress(byte *sensor_id);
 };

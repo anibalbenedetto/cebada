@@ -68,6 +68,9 @@ void System::begin()
       
       for (int i=0; i < num_blocks; i++){
         blocks[i]->ReadBlock(i);
+        if(!(sensors.checkSensor( blocks[i]->getSensorId() ))){
+          blocks[i]->setStatus(CONTROL_BLOCK_STATUS_ERROR);
+        }
       }
       
       system_mode = mode_oper;
@@ -90,14 +93,19 @@ void System::updateTemps(){
   
   sensors.requestTemperatures();
   for (byte i=0; i < num_blocks; i++){
-    blocks[i]->setTemp( sensors.getTemperature( blocks[i]->getSensorId() ));
+    float tempC = sensors.getTemperature( blocks[i]->getSensorId());
+    if (tempC == -127.00) {
+      blocks[i]->setStatus(CONTROL_BLOCK_STATUS_ERROR);
+    }
+    else {
+      blocks[i]->setTemp(tempC);
+    }
   }  
 }
 
 void System::updateOutputs(){
-  Serial.print("num_shift_registers: "); Serial.println(num_shift_registers);
-  
-  byte _data[num_shift_registers]; //datos a escribir
+    
+  byte _data[num_shift_registers];
   for (int j=0; j < num_shift_registers; j++) _data[j] = 0;
   
   for (int current_sr=0; current_sr < num_shift_registers; current_sr++){
