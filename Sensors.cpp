@@ -18,7 +18,7 @@ void Sensors::begin(){
 }
 
 byte Sensors::DiscoverOneWireDevices() {
-  oneWire.reset();
+ /* oneWire.reset();
   oneWire.reset_search();
   
   byte from_index = 0;
@@ -29,8 +29,8 @@ byte Sensors::DiscoverOneWireDevices() {
   }
   Serial.print("No more addresses.\n");
   //oneWire.reset_search();
-  //oneWire.reset();
-  return from_index;
+  //oneWire.reset();*/
+  return DiscoverOneWireDevices(0);
 }
 
 byte Sensors::DiscoverOneWireDevices(byte from_index) {
